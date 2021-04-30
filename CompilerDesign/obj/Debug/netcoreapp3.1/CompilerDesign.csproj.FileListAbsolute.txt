@@ -1,0 +1,13 @@
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.csprojAssemblyReference.cache
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.AssemblyInfoInputs.cache
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.AssemblyInfo.cs
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.csproj.CoreCompileInputs.cache
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\CompilerDesign.exe
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\CompilerDesign.deps.json
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\CompilerDesign.runtimeconfig.json
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\CompilerDesign.runtimeconfig.dev.json
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\CompilerDesign.dll
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\CompilerDesign.pdb
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.dll
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.pdb
+D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.genruntimeconfig.cache
