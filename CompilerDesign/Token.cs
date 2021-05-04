@@ -7,8 +7,8 @@ namespace CompilerDesign
     class Token
     {
 
-        string tokenn;
-        string lexeme;
+        string tokenn; 
+        string lexeme; 
         int pos;
        
         public Token(string token,string lexeme)

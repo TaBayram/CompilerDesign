@@ -109,12 +109,89 @@ namespace CompilerDesign
                
         }
 
-        void P(){
-            if (true)
+        public void P()
+        {
+            Token token = GetToken();
+            if (token.Lexeme == ".")
             {
+                //programı sonlandır
 
             }
+            else
+            {
+                C();
+            }
+            
         }
+
+        public void C()
+        {
+            Token token = GetToken();
+
+            if (token.Lexeme == "[")
+            {
+                I();
+            }
+            else if (token.Lexeme == "{")
+            {
+                W();
+            }
+            else if (token.Tokenn == "letter")
+            {
+                A();
+            }
+            else if (token.Lexeme == "<")
+            {
+                Ç();
+            }
+            else if (token.Lexeme == ">")
+            {
+                G();
+            }
+
+        }
+
+        public void I()
+        {
+            currentTokenPos++;
+            E();
+
+            Token token = GetToken();
+            if(token.Lexeme != "?")
+            {
+                throw (new Exception("Gay"));
+            }
+            C();
+        }
+
+        public void E()
+        {
+
+        }
+
+        public void W()
+        {
+
+        }
+
+        public void A()
+        {
+
+        }
+
+        public void Ç()
+        {
+
+        }
+
+        public void G()
+        {
+
+        }
+
+
+
+
     }
 }
 
