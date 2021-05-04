@@ -11,3 +11,14 @@ D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\
 D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.dll
 D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.pdb
 D:\Users\Documents\GitHub\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.genruntimeconfig.cache
+C:\Users\abdll\source\repos\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\CompilerDesign.exe
+C:\Users\abdll\source\repos\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\CompilerDesign.deps.json
+C:\Users\abdll\source\repos\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\CompilerDesign.runtimeconfig.json
+C:\Users\abdll\source\repos\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\CompilerDesign.runtimeconfig.dev.json
+C:\Users\abdll\source\repos\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\CompilerDesign.dll
+C:\Users\abdll\source\repos\CompilerDesign\CompilerDesign\bin\Debug\netcoreapp3.1\CompilerDesign.pdb
+C:\Users\abdll\source\repos\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.csprojAssemblyReference.cache
+C:\Users\abdll\source\repos\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.AssemblyInfoInputs.cache
+C:\Users\abdll\source\repos\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.AssemblyInfo.cs
+C:\Users\abdll\source\repos\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.dll
+C:\Users\abdll\source\repos\CompilerDesign\CompilerDesign\obj\Debug\netcoreapp3.1\CompilerDesign.pdb

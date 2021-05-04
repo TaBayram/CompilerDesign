@@ -6,12 +6,47 @@ namespace CompilerDesign
 
     class Program
     {
-        List<string> operators = new List<string>() { "+", "=", "-" ,"*","/","%",";"};
-        List<string> letters = new List<string>() { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
-        List<string> numbers = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-        List<string> dataType = new List<string>() { "int" , "string"};
+        static List<string> operators = new List<string>() { "+", "=", "-", "*", "/", "%", ";", "?", ":" , "{" , "}" , "<" , ">" };
+        static List<string> letters = new List<string>() { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+        static List<string> numbers = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        static List<string> dataType = new List<string>() { "int" , "string"};
 
-        public void GetTokens(string input)
+        static List<string> tokenList;
+
+
+        public bool IsTerminal(string value)
+        {
+            if (IsOperator(value)) { return true; }
+            else if (IsLetter(value)) { return true; }
+            else if (IsNumber(value)) { return true; }
+            else if (IsDataType(value)) { return true; }
+            else { return false; }
+        }
+
+        public bool IsOperator(string value)
+        {
+            if (operators.Contains(value)) { return true; }
+            else { return false; }
+        }
+
+        public static bool IsLetter(string value)
+        {
+            if (letters.Contains(value)) { return true; }
+            else { return false; }
+        }
+
+        public bool IsNumber(string value)
+        {
+            if (numbers.Contains(value)) { return true; }
+            else { return false; }
+        }
+
+        public bool IsDataType(string value)
+        {
+            if (dataType.Contains(value)) { return true; }
+            else { return false; }
+        }
+        public List<string> GetTokens(string input)
         {
             input = input.Trim();
             var opTokens = new List<string>();
@@ -58,7 +93,8 @@ namespace CompilerDesign
             {
                 Console.WriteLine(tok);
             }
-            
+
+            return tokens;
             
 
         }
@@ -67,8 +103,79 @@ namespace CompilerDesign
         static void Main(string[] args)
         {
             Program program = new Program();
-            program.GetTokens(" int a=b+5*2");
+            tokenList = program.GetTokens("n = 0; { n - 2*5 ? < n; n=n+1}");
+            P();
         }
+
+        public static void P()
+        {
+            foreach(String token in tokenList)
+            {
+                if(token == ".") 
+                {
+                    //programı sonlandır
+
+                }
+                else
+                {
+                    C(token);
+                }
+            }
+        }
+
+        public static void C(string token)
+        {
+            if(token == "[")
+            {
+                I();
+            }
+            else if (token == "{")
+            {
+                W();
+            }
+            else if (IsLetter(token))
+            {
+                A();
+            }
+            else if (token == "<")
+            {
+                Ç();
+            }
+            else if (token == ">")
+            {
+                G();
+            }
+
+        }
+
+        public static void I()
+        {
+
+        }
+
+        public static void W()
+        {
+
+        }
+
+        public static void A()
+        {
+
+        }
+
+        public static void Ç()
+        {
+
+        }
+
+        public static void G()
+        {
+
+        }
+
+
+
+
     }
 }
 
