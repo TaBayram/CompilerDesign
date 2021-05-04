@@ -1,73 +1,119 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CompilerDesign
 {
 
     class Program
     {
-        List<string> operators = new List<string>() { "+", "=", "-" ,"*","/","%",";"};
+        List<string> operators = new List<string>() { "+", "=", "-" ,"*","/","%",";","(",")"};
         List<string> letters = new List<string>() { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
         List<string> numbers = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
         List<string> dataType = new List<string>() { "int" , "string"};
 
-        public void GetTokens(string input)
+        List<Token> ruleTokens = new List<Token>();
+        List<Token> inputTokens = new List<Token>();
+        int currentTokenPos = 0;
+
+        void Initiate()
         {
-            input = input.Trim();
-            var opTokens = new List<string>();
-            var letTokens = new List<string>();
-            var numTokens = new List<string>();
-            var dtTokens = new List<string>();
-            var tokens = new List<string>();
-  
-            for(int i = 0; i < input.Length; i++)
+
+            foreach (string op in dataType)
             {
-                char c = input[i];
-                if (operators.Contains(c.ToString())){
-                    opTokens.Add(c.ToString());
-                    tokens.Add(c.ToString());
-                }
-                else if (letters.Contains(c.ToString()))
+                ruleTokens.Add(new Token("keyword", op));
+            }
+            foreach (string op in operators)
+            {
+                ruleTokens.Add(new Token("operator", op));
+            }
+            foreach (string op in letters)
+            {
+                ruleTokens.Add(new Token("letter", op));
+            }
+            foreach (string op in numbers)
+            {
+                ruleTokens.Add(new Token("number", op));
+            }
+
+
+            PrepareInput();
+        }
+
+        void PrepareInput()
+        {
+            string input = " int a=b+6+string+(5);";
+            List<int> usedIndexes = new List<int>();
+            foreach (Token ruleToken in ruleTokens)
+            {
+                int index = 0;
+                while (index <= input.Length)
                 {
-                    bool isType = false;
-                    foreach (string type in dataType)
+                    index = input.IndexOf(ruleToken.Lexeme, index);
+                    if (index != -1)
                     {
-                        if (input.Length >= i+type.Length && input.Substring(i, type.Length) == type)
+                        bool isDuplicate = false;
+                        foreach (int used in usedIndexes)
                         {
-                            dtTokens.Add(type);
-                            tokens.Add(type);
-                            i += type.Length;
-                            isType = true;
-                            break;
+                            for (int i = 0; i < ruleToken.Lexeme.Length; i++)
+                            {
+                                if (i + index == used)
+                                {
+                                    isDuplicate = true;
+                                    break;
+                                }
+                            }
+                            if (isDuplicate) break;
                         }
+
+                        if (isDuplicate)
+                        {
+                            index += ruleToken.Lexeme.Length;
+                            continue;
+                        }
+
+                        for (int i = 0; i < ruleToken.Lexeme.Length; i++)
+                        {
+                            usedIndexes.Add(index + i);
+                        }
+                        this.inputTokens.Add(new Token(ruleToken, index));
+                        index += ruleToken.Lexeme.Length;
                     }
-                    if (isType) continue;
-                    letTokens.Add(c.ToString());
-                    tokens.Add(c.ToString());
+                    else
+                    {
+                        break;
+                    }
                 }
-                else if(numbers.Contains(c.ToString()))
-                {
-                    numTokens.Add(c.ToString());
-                    tokens.Add(c.ToString());
-                }
-
             }
-            
 
-            foreach (string tok in tokens)
+            this.inputTokens = inputTokens.OrderBy(o => o.Pos).ToList();
+            foreach (Token token in inputTokens)
             {
-                Console.WriteLine(tok);
+                Console.Write(token.Lexeme + " ");
             }
-            
-            
+        }
 
+        Token GetToken()
+        {
+            return inputTokens[currentTokenPos];
         }
 
 
-        static void Main(string[] args)
-        {
+        static void Main(string[] args){
+
             Program program = new Program();
-            program.GetTokens(" int a=b+5*2");
+            program.Initiate();
+
+            Token token = program.GetToken();
+            program.P();
+               
+        }
+
+        void P(){
+            if (true)
+            {
+
+            }
         }
     }
 }
