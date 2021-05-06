@@ -1,4 +1,4 @@
-﻿
+﻿ 
 using System;
 using System.Collections.Generic;
 
@@ -8,11 +8,11 @@ namespace CompilerDesign
     {
         public object Value { get; set; }
     }
-
+    
     public class Program
     {
-
-        public static List<char> operators = new List<char>() { '+', '=', '-', '*', '/', '%', ';', '?', ':', '{', '}', '<', '>' };
+        
+        public static List<char> operators = new List<char>() { '+', '=', '-', '*', '/', '%', ';', '?', ':' , '{' , '}' , '<' , '>' };
         public static List<char> letters = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
         public static List<char> numbers = new List<char>() { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         public static Dictionary<char, Variable> variables = new Dictionary<char, Variable>(){
@@ -24,28 +24,26 @@ namespace CompilerDesign
                                                                                                 {'u', new Variable()},{'v', new Variable()},{'w', new Variable()},{'x', new Variable()},
                                                                                                 {'y', new Variable()},{'z', new Variable()}
                                                                                             };
-        public static int tokenCounter = 0;
-        public static char token;
+        public static int tokenCounter=0;
+        public static char token ;
         public static char tempTokenVar;
         public static string tokenList;
         public static string input;
         public static int inputLen;
-        public static Variable tempVariable = new Variable();
+        public static Variable tempVariable= new Variable();
 
         public static char GetToken()
         {
             char tokenpop;
-            if (tokenCounter <= inputLen)
-            {
+            if(tokenCounter<=inputLen){
                 tokenpop = tokenList[tokenCounter];
                 tokenCounter++;
+            }  
+            else{
+                tokenpop='.';
             }
-            else
-            {
-                tokenpop = '.';
-            }
-
-            return tokenpop;
+                
+            return tokenpop;    
         }
 
 
@@ -54,33 +52,33 @@ namespace CompilerDesign
             do
             {
                 //input ="  n = 0; { n - 2*5 ? < n; n=n+1}  ";
-                input = Console.ReadLine();
-                inputLen = input.Length - 1;
-                tokenList = input.Replace(" ", "");
-                tokenCounter = 0;
+                input= Console.ReadLine();
+                inputLen = input.Length -1;
+                tokenList = input.Replace(" ","");
+                tokenCounter=0;      
                 token = GetToken();
                 Program_();
-            } while (input != "");
+            } while (input!="");
         }
 
         public static void Program_()
         {
-
-            if (token != '.')
-            {
-                Cumle();
-            }
-            if (token == '.')
-            {
-                //programı sonlandır
-                Console.WriteLine("succesfuly interpreted");
-            }
+            
+                if(token != '.') 
+                {
+                    Cumle();
+                }
+                if(token == '.')
+                {
+                    //programı sonlandır
+                    Console.WriteLine("succesfuly interpreted");
+                }
         }
 
         // C → I | W | A | Ç | G 
         public static void Cumle()
         {
-            if (token == '[')
+            if(token == '[')
             {
                 token = GetToken();
                 If();
@@ -111,7 +109,7 @@ namespace CompilerDesign
         {
             Evalue();
             token = GetToken();
-            if (token != '?')
+            if (token!='?')
             {
                 Console.WriteLine("if syntax error");
                 Environment.Exit(0);
@@ -119,27 +117,25 @@ namespace CompilerDesign
             else
             {
                 token = GetToken();
-                while (token != ']' && token != ':')
+                while (token!=']' && token!=':')
                 {
                     Cumle();
-                    token = GetToken();
+                    token = GetToken();    
                 }
-                if (token == ']')
-                {
+                if(token==']'){
                     System.Console.WriteLine("if");
                     //if-then işlemi
                 }
-                else if (token == ':')
-                {
+                else if(token == ':'){
+                    
+                    token=GetToken();
 
-                    token = GetToken();
-
-                    while (token != ']')
+                    while (token!=']')
                     {
                         Cumle();
-                        token = GetToken();
+                        token=GetToken();
                     }
-
+                    
                     //if-then-else işlemi
                 }
             }
@@ -149,35 +145,35 @@ namespace CompilerDesign
         public static void Whle()
         {
             Evalue();
-            token = GetToken();
-            if (token != '?')
+            token=GetToken();
+            if (token!='?')
             {
                 System.Console.WriteLine("while syntax error");
                 Environment.Exit(0);
             }
             else
             {
-                token = GetToken();
-                while (token != '}')
+                token=GetToken();
+                while (token!='}')
                 {
                     Cumle();
-                    token = GetToken();
+                    token=GetToken();
                 }
                 System.Console.WriteLine("while");
-
+                
             }
         }
         // A → K '=' E ';'
         public static void Atama()
         {
             KHarf();
-            token = GetToken();
-            if (token == '=')
+            token=GetToken();
+            if (token=='=')
             {
                 token = GetToken();
                 Evalue();
                 token = GetToken();
-                if (token == ';')
+                if (token==';')
                 {
                     //atama
                 }
@@ -207,10 +203,10 @@ namespace CompilerDesign
         public static void Evalue()
         {
             TerimCarpBol();
-            token = GetToken();
-            while (token == '+' || token == '-')
+            token=GetToken();
+            while (token=='+' || token=='-')
             {
-                token = GetToken();
+                token=GetToken();
                 TerimCarpBol();
             }
         }
@@ -218,10 +214,10 @@ namespace CompilerDesign
         public static void TerimCarpBol()
         {
             Uslu();
-            token = GetToken();
-            while (token == '*' || token == '/' || token == '%')
+            token=GetToken();
+            while (token=='*' || token=='/' || token=='%')
             {
-                token = GetToken();
+                token=GetToken();
                 Uslu();
             }
         }
@@ -229,23 +225,22 @@ namespace CompilerDesign
         public static void Uslu()
         {
             Fgroup();
-            token = GetToken();
-            if (token == '^')
+            token=GetToken();
+            if (token=='^')
             {
-                token = GetToken();
+                token=GetToken();
                 Uslu();
             }
-
+            
         }
         // F → '(' E ')' | K | R
         public static void Fgroup()
         {
-            if (token == '(')
-            {
-                token = GetToken();
+            if(token=='('){
+                token=GetToken();
                 Evalue();
-                token = GetToken();
-                if (token == ')')
+                token=GetToken();
+                if (token==')')
                 {
                     // hesaplama işlemleri
                 }
@@ -264,7 +259,7 @@ namespace CompilerDesign
         // K → 'a' | 'b' | … | 'z' 
         public static void KHarf()
         {
-            tempTokenVar = token;
+            tempTokenVar=token;
         }
         // R → '0' | '1' | … | '9' 
         public static void Rakam()

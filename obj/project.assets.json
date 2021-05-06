@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\uslu.yusuf\\proje\\CompilerDesign\\CompilerDesign.csproj",
-      "projectName": "CompilerDesign",
-      "projectPath": "C:\\Users\\uslu.yusuf\\proje\\CompilerDesign\\CompilerDesign.csproj",
+      "projectUniqueName": "C:\\Users\\uslu.yusuf\\proje\\yorumlayici\\yorumlayici.csproj",
+      "projectName": "yorumlayici",
+      "projectPath": "C:\\Users\\uslu.yusuf\\proje\\yorumlayici\\yorumlayici.csproj",
       "packagesPath": "C:\\Users\\uslu.yusuf\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\uslu.yusuf\\proje\\CompilerDesign\\obj\\",
+      "outputPath": "C:\\Users\\uslu.yusuf\\proje\\yorumlayici\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\uslu.yusuf\\AppData\\Roaming\\NuGet\\NuGet.Config",
