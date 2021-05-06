@@ -1,0 +1,5 @@
+C:\Users\uslu.yusuf\proje\CompilerDesign\obj\Debug\net5.0\CompilerDesign.csprojAssemblyReference.cache
+C:\Users\uslu.yusuf\proje\CompilerDesign\obj\Debug\net5.0\CompilerDesign.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\uslu.yusuf\proje\CompilerDesign\obj\Debug\net5.0\CompilerDesign.AssemblyInfoInputs.cache
+C:\Users\uslu.yusuf\proje\CompilerDesign\obj\Debug\net5.0\CompilerDesign.AssemblyInfo.cs
+C:\Users\uslu.yusuf\proje\CompilerDesign\obj\Debug\net5.0\CompilerDesign.csproj.CoreCompileInputs.cache
