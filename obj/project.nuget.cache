@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ePMIP2wEt+93+ftTSldJXk9tETShZoqxb4LI2mbLKwVwuqY+m7HscvOHQlL/X0rFkLYRUj2H5wvR6VW32i+fWA==",
+  "dgSpecHash": "rphXUlzG3rQ0CF1qiKQqHNFREdpZ2qEite/fuhpsl0BL0LnrnGN+smRQk5TwwDHtwR8aQua4tmT6GyCkPwrVcQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\uslu.yusuf\\proje\\yorumlayici\\yorumlayici.csproj",
+  "projectFilePath": "C:\\Users\\uslu.yusuf\\proje\\CompilerDesign\\yorumlayici.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

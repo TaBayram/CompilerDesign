@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\uslu.yusuf\\proje\\yorumlayici\\yorumlayici.csproj": {}
+    "C:\\Users\\uslu.yusuf\\proje\\CompilerDesign\\yorumlayici.csproj": {}
   },
   "projects": {
-    "C:\\Users\\uslu.yusuf\\proje\\yorumlayici\\yorumlayici.csproj": {
+    "C:\\Users\\uslu.yusuf\\proje\\CompilerDesign\\yorumlayici.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\uslu.yusuf\\proje\\yorumlayici\\yorumlayici.csproj",
+        "projectUniqueName": "C:\\Users\\uslu.yusuf\\proje\\CompilerDesign\\yorumlayici.csproj",
         "projectName": "yorumlayici",
-        "projectPath": "C:\\Users\\uslu.yusuf\\proje\\yorumlayici\\yorumlayici.csproj",
+        "projectPath": "C:\\Users\\uslu.yusuf\\proje\\CompilerDesign\\yorumlayici.csproj",
         "packagesPath": "C:\\Users\\uslu.yusuf\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\uslu.yusuf\\proje\\yorumlayici\\obj\\",
+        "outputPath": "C:\\Users\\uslu.yusuf\\proje\\CompilerDesign\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\uslu.yusuf\\AppData\\Roaming\\NuGet\\NuGet.Config",
