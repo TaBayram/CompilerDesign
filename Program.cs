@@ -40,6 +40,8 @@ namespace CompilerDesign
         static float tempGenel = 0;
         static float tempCarpmaBolme = 0;
         static float tempUslu = 0;
+        static int selectorMulDivMod=0;
+        static int selectorSubAdd=0;
         static char GetToken()
         {
             char tokenpop;
@@ -216,27 +218,48 @@ namespace CompilerDesign
             tempGenel=tempCarpmaBolme;
             while (token=='+' || token=='-')
             {
-                token=GetToken();
-                TerimCarpBol();
-
                 if (token=='+')
                 {
-                    tempGenel+=tempCarpmaBolme;
+                    selectorSubAdd=0;
                 }
                 else if (token=='-')
                 {
+                    selectorSubAdd=1;
+                }
+                token=GetToken();
+                TerimCarpBol();
+
+                if (selectorSubAdd==0)
+                {
                     tempGenel+=tempCarpmaBolme;
+                }
+                else if (selectorSubAdd==1)
+                {
+                    tempGenel-=tempCarpmaBolme;
                 }
             }
             System.Console.WriteLine(tempGenel);
+            
         }
         // T → U {('*' | '/' | '%') U}
         static void TerimCarpBol()// 
         {
+            if (token=='*')
+            {
+                selectorMulDivMod=0;
+            }
+            else if (token=='/')
+            {
+                selectorMulDivMod=1;
+            }
+            else if (token=='%')
+            {
+                selectorMulDivMod=2;
+            }
             powerTempVal.Clear();
             Uslu();
             tempUslu=powerTempVal[0];
-            for (int i = 1; i < powerTempVal.Count-1; i++)
+            for (int i = 1; i < powerTempVal.Count; i++)
             {
                 tempUslu=Convert.ToSingle(Math.Pow(tempUslu,powerTempVal[i])) ;
             }
@@ -247,19 +270,20 @@ namespace CompilerDesign
                 token=GetToken();
                 Uslu();
                 tempUslu=powerTempVal[0];
-                for (int i = 1; i < powerTempVal.Count-1; i++)
+                for (int i = 1; i < powerTempVal.Count; i++)
                 {
                     tempUslu=Convert.ToSingle(Math.Pow(tempUslu,powerTempVal[i])) ;
                 }
-                if (token=='*')
+                if (selectorMulDivMod==0)
                 {
                     tempCarpmaBolme*=tempUslu;
+                    
                 }
-                else if (token=='/')
+                else if (selectorMulDivMod==1)
                 {
                     tempCarpmaBolme/=tempUslu;
                 }
-                else if (token=='%')
+                else if (selectorMulDivMod==2)
                 {
                     tempCarpmaBolme%=tempUslu;
                 }
