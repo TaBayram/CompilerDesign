@@ -1,4 +1,4 @@
-﻿ 
+
 using System;
 using System.Collections.Generic;
 namespace CompilerDesign
@@ -13,57 +13,66 @@ namespace CompilerDesign
             
         }
     }*/
-    
+
     class Program
     {
-        
-        static List<char> operators = new List<char>() { '+', '=', '-', '*', '/', '%', ';', '?', ':' , '{' , '}' , '<' , '>' };
+
+        static List<char> operators = new List<char>() { '+', '=', '-', '*', '/', '%', ';', '?', ':', '{', '}', '<', '>' };
         static List<char> letters = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
         static List<char> numbers = new List<char>() { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static List<float> powerTempVal = new List<float>();
-        static Stack<float> parantheStack=new Stack<float>();
+        static Stack<float> parantheStack = new Stack<float>();
+        static List<float> ifCondList = new List<float>();
+        static List<float> WhileCondList = new List<float>();
+        static List<int> WhileControlList = new List<int>();
         static Dictionary<char, float> variables = new Dictionary<char, float>(){
-                                                                                                {'a', new float()},{'b', new float()},{'c', new float()},{'d', new float()},
-                                                                                                {'e', new float()},{'f', new float()},{'g', new float()},{'h', new float()},
-                                                                                                {'i', new float()},{'j', new float()},{'k', new float()},{'l', new float()},
-                                                                                                {'m', new float()},{'n', new float()},{'o', new float()},{'p', new float()},
-                                                                                                {'q', new float()},{'r', new float()},{'s', new float()},{'t', new float()},
-                                                                                                {'u', new float()},{'v', new float()},{'w', new float()},{'x', new float()},
-                                                                                                {'y', new float()},{'z', new float()}
-                                                                                            };
-        static int tokenCounter=0;
-        static char token ;
+                                                                                     {'a', new float()},{'b', new float()},{'c', new float()},{'d', new float()},
+                                                                                     {'e', new float()},{'f', new float()},{'g', new float()},{'h', new float()},
+                                                                                     {'i', new float()},{'j', new float()},{'k', new float()},{'l', new float()},
+                                                                                     {'m', new float()},{'n', new float()},{'o', new float()},{'p', new float()},
+                                                                                     {'q', new float()},{'r', new float()},{'s', new float()},{'t', new float()},
+                                                                                     {'u', new float()},{'v', new float()},{'w', new float()},{'x', new float()},
+                                                                                     {'y', new float()},{'z', new float()}
+                                                                                 };
+        static int tokenCounter = 0;
+        static char token;
         static char tempTokenVar;
         static string tokenList;
         static string input;
         static int inputLen;
-        static float tempIfVal;
-        static float tempWhileVal;
         static float tempEvalue = 0;
         static float tempCarpmaBolme = 0;
         static float tempUslu = 0;
-        static float tempParanthes=0;
-        static int selectorMulDivMod=0;
-        static int selectorSubAdd=0;
-        static int tempWhileControl=0;
-        static string agac="";
+        static int selectorMulDivMod = 0;
+        static int selectorSubAdd = 0;
+        static int tempWhileControl = -1;
+        static int tempIfControl = -1;
+        static int whileParantez = 0;
         static char GetToken()
         {
             char tokenpop;
-            if(tokenCounter<=inputLen){
+            if (tokenCounter <= inputLen)
+            {
                 tokenpop = tokenList[tokenCounter];
+                if (tempWhileControl>-1)
+                {
+                    for (int i = 0; i < tempWhileControl+1; i++)
+                    {
+                        WhileControlList[i]++;
+                    }
+                }
                 tokenCounter++;
-                tempWhileControl++;
-            }  
-            else{
+            }
+            else
+            {
                 foreach (var let in letters)
                 {
-                    variables[let]=0;
+                    variables[let] = 0;
                 }
-                tokenpop='.';
+                tokenpop = '.';
             }
-                
-            return tokenpop;    
+
+            return tokenpop;
         }
 
 
@@ -72,47 +81,50 @@ namespace CompilerDesign
             do
             {
                 //input ="  n = 0; { n - 2*5 ? < n; n=n+1}  ";
-                input= Console.ReadLine();
-                inputLen = input.Length -1;
-                tokenList = input.Replace(" ","");
-                tokenCounter=0;      
+                input = Console.ReadLine();
+                inputLen = input.Length - 1;
+                tokenList = input.Replace(" ", "");
+                tokenCounter = 0;
                 token = GetToken();
                 Program_();
                 /*foreach (var item in variables)
                 {
                     System.Console.WriteLine(item.Value);
                 }*/
-            } while (input!="");
+            } while (input != "");
         }
 
         static void Program_()
         {
-                agac+=" P-->";
-                if(token != '.') 
-                {
-                    Cumle();
-                    System.Console.WriteLine("\n"+agac);
-                }
-                if(token == '.')
-                {
-                    //programı sonlandır
-                    Console.WriteLine("\nsuccesfuly interpreted");
-                }
+            if (token != '.')
+            {
+                Cumle();
+            }
+            if (token == '.')
+            {
+                //programı sonlandır
+                Console.WriteLine("\nsuccesfuly interpreted");
+            }
 
         }
 
         // C → I | W | A | Ç | G 
         static void Cumle()
         {
-            agac+=" C-->";
-            if(token == '[')
+            if (token == '[')
             {
+                tempIfControl++;
                 token = GetToken();
                 If();
             }
             else if (token == '{')
             {
-                tempWhileControl=1;
+                tempWhileControl++;
+                if (tempWhileControl==WhileControlList.Count)
+                {
+                    WhileControlList.Add(0);
+                }
+                WhileControlList[tempWhileControl] = 1;
                 token = GetToken();
                 Whle();
             }
@@ -135,11 +147,10 @@ namespace CompilerDesign
         // I   → '[' E '?' C{ C } ':' C { C } ']' | '[' E '?' C{C} ']'
         static void If()
         {
-            agac+=" I-->";
-            tempEvalue=0;
+            tempEvalue = 0;
             Evalue();
-            tempIfVal=tempEvalue;
-            if (token!='?')
+            ifCondList.Add(tempEvalue);
+            if (token != '?')
             {
                 Console.WriteLine("\nif syntax error");
                 Environment.Exit(0);
@@ -147,52 +158,59 @@ namespace CompilerDesign
             else
             {
                 token = GetToken();
-                
-                while (token!=']' && token!=':')
+
+                while (token != ']' && token != ':')
                 {
-                    if(tempIfVal!=0){
+                    if (ifCondList[tempIfControl] != 0)
+                    {
                         Cumle();
                     }
                     else
                     {
-                        token=GetToken();
+                        token = GetToken();
                     }
-                    
                 }
-                if(token==']'){
-                    token=GetToken();
+                if (token == ']')
+                {
+                    tempIfControl--;
+                    token = GetToken();
                     Cumle();
                 }
-                else if(token == ':'){
-                    
-                    token=GetToken();
-                    while (token!=']')
+                else if (token == ':')
+                {
+
+                    token = GetToken();
+                    while (token != ']')
                     {
-                        if (tempIfVal==0)
+                        if (ifCondList[tempIfControl] == 0)
                         {
                             Cumle();
                         }
                         else
                         {
-                            token=GetToken();
+                            token = GetToken();
                         }
                     }
-                    token=GetToken();
+                    tempIfControl--;
+                    token = GetToken();
                     Cumle();
                 }
-                
+
             }
         }
 
         //W → '{' E '?'  C{C} '}'
         static void Whle()
         {
-            
-            agac+=" W-->";
-            tempEvalue=0;
+            int interWhile = 0;
+            tempEvalue = 0;
             Evalue();
-            tempWhileVal=tempEvalue;
-            if (token!='?')
+            if (tempWhileControl == WhileCondList.Count)
+            {
+                WhileCondList.Add(0);
+            }
+            WhileCondList[tempWhileControl] = tempEvalue;
+            if (token != '?')
             {
                 System.Console.WriteLine("\nwhile syntax error");
                 Environment.Exit(0);
@@ -200,40 +218,59 @@ namespace CompilerDesign
             else
             {
                 //whileLoop=input.Substring(tokenCounter,input.IndexOf('}'));
-                
-                token=GetToken();
-                while (token!='}')
+                token = GetToken();
+                while (token != '}')
                 {
-                    if (tempWhileVal!=0)
+                    if (WhileCondList[tempWhileControl] != 0)
                     {
                         Cumle();
-                        tokenCounter-=tempWhileControl;
+                        tokenCounter -= WhileControlList[tempWhileControl];
+                        for (int i = 0; i < tempWhileControl; i++)
+                        {
+                            WhileControlList[i] -= WhileControlList[tempWhileControl];
+                        }
                     }
                     else
                     {
-                        token=GetToken();
+                        if (token=='{')
+                        {
+                            interWhile++;
+                        }
+                        token = GetToken();
+
                     }
                 }
-                token=GetToken();
+                if (WhileCondList[tempWhileControl] == 0)
+                {
+                    while (interWhile>0)
+                    {
+                        token = GetToken();
+                        if (token=='}')
+                        {
+                            interWhile--;
+                        }
+                    }
+                }
+                tempWhileControl--;
+                token = GetToken();
                 Cumle();
             }
         }
         // A → K '=' E ';'
         static void Atama()
         {
-            agac+=" A-->";
-            
+
             KHarf();
-            
-            if (token=='=')
+
+            if (token == '=')
             {
                 token = GetToken();
                 Evalue();
-                if (token==';')
+                if (token == ';')
                 {
                     //atama işlemi
-                    variables[tempTokenVar]=tempEvalue;
-                    token=GetToken();
+                    variables[tempTokenVar] = tempEvalue;
+                    token = GetToken();
                     Cumle();
                 }
                 else
@@ -251,13 +288,12 @@ namespace CompilerDesign
         // Ç → '<' E ';'
         static void Cikti()
         {
-            agac+=" C-->";
-            tempEvalue=0;
+            tempEvalue = 0;
             Evalue();
-            if (token==';')
+            if (token == ';')
             {
                 System.Console.WriteLine(tempEvalue);
-                token=GetToken();
+                token = GetToken();
                 Cumle();
             }
             else
@@ -270,12 +306,12 @@ namespace CompilerDesign
         // G → '>' K ';'
         static void Girdi()
         {
-            agac+=" G-->";
             KHarf();
-            if(token==';'){
+            if (token == ';')
+            {
                 System.Console.WriteLine("\nEnter " + tempTokenVar.ToString() + " value");
-                variables[tempTokenVar]=Convert.ToSingle(Console.ReadLine());
-                token=GetToken();
+                variables[tempTokenVar] = Convert.ToSingle(Console.ReadLine());
+                token = GetToken();
                 Cumle();
 
             }
@@ -284,111 +320,107 @@ namespace CompilerDesign
                 System.Console.WriteLine("\nmissing ; on input error");
                 Environment.Exit(0);
             }
-            
+
         }
         // E → T {('+' | '-') T}
         static void Evalue()
         {
-            agac+=" E-->";
             TerimCarpBol();
-            tempEvalue=tempCarpmaBolme;
-            while (token=='+' || token=='-')
+            tempEvalue = tempCarpmaBolme;
+            while (token == '+' || token == '-')
             {
-                if (token=='+')
+                if (token == '+')
                 {
-                    selectorSubAdd=0;
+                    selectorSubAdd = 0;
                 }
-                else if (token=='-')
+                else if (token == '-')
                 {
-                    selectorSubAdd=1;
+                    selectorSubAdd = 1;
                 }
-                token=GetToken();
+                token = GetToken();
                 TerimCarpBol();
 
-                if (selectorSubAdd==0)
+                if (selectorSubAdd == 0)
                 {
-                    tempEvalue+=tempCarpmaBolme;
+                    tempEvalue += tempCarpmaBolme;
                 }
-                else if (selectorSubAdd==1)
+                else if (selectorSubAdd == 1)
                 {
-                    tempEvalue-=tempCarpmaBolme;
+                    tempEvalue -= tempCarpmaBolme;
                 }
             }
-            
+
         }
         // T → U {('*' | '/' | '%') U}
         static void TerimCarpBol()
         {
-            agac+=" T-->";
             powerTempVal.Clear();
             Uslu();
-            tempUslu=powerTempVal[0];
+            tempUslu = powerTempVal[0];
             for (int i = 1; i < powerTempVal.Count; i++)
             {
-                tempUslu=Convert.ToSingle(Math.Pow(tempUslu,powerTempVal[i])) ;
+                tempUslu = Convert.ToSingle(Math.Pow(tempUslu, powerTempVal[i]));
             }
-            tempCarpmaBolme=tempUslu;
-            while (token=='*' || token=='/' || token=='%')
+            tempCarpmaBolme = tempUslu;
+            while (token == '*' || token == '/' || token == '%')
             {
-                if (token=='*')
+                if (token == '*')
                 {
-                    selectorMulDivMod=0;
+                    selectorMulDivMod = 0;
                 }
-                else if (token=='/')
+                else if (token == '/')
                 {
-                    selectorMulDivMod=1;
+                    selectorMulDivMod = 1;
                 }
-                else if (token=='%')
+                else if (token == '%')
                 {
-                    selectorMulDivMod=2;
+                    selectorMulDivMod = 2;
                 }
                 powerTempVal.Clear();
-                token=GetToken();
+                token = GetToken();
                 Uslu();
-                tempUslu=powerTempVal[0];
+                tempUslu = powerTempVal[0];
                 for (int i = 1; i < powerTempVal.Count; i++)
                 {
-                    tempUslu=Convert.ToSingle(Math.Pow(tempUslu,powerTempVal[i])) ;
+                    tempUslu = Convert.ToSingle(Math.Pow(tempUslu, powerTempVal[i]));
                 }
-                if (selectorMulDivMod==0)
+                if (selectorMulDivMod == 0)
                 {
-                    tempCarpmaBolme*=tempUslu;
-                    
+                    tempCarpmaBolme *= tempUslu;
                 }
-                else if (selectorMulDivMod==1)
+                else if (selectorMulDivMod == 1)
                 {
-                    tempCarpmaBolme/=tempUslu;
+                    tempCarpmaBolme /= tempUslu;
                 }
-                else if (selectorMulDivMod==2)
+                else if (selectorMulDivMod == 2)
                 {
-                    tempCarpmaBolme%=tempUslu;
+                    tempCarpmaBolme %= tempUslu;
                 }
-                
+
             }
         }
         // U → F '^' U | F
         static void Uslu()
         {
-            agac+=" U-->";
             Fgroup();//  a^2^4^5
-            while(token=='^')
+            while (token == '^')
             {
-                token=GetToken();
+                token = GetToken();
                 Uslu();
             }
-            
+
         }
         // F → '(' E ')' | K | R
         static void Fgroup()
         {
-            agac+=" F-->";// a=2+(2*2)
-            if(token=='('){
-                token=GetToken();
-                tempEvalue=0;
+            if (token == '(')
+            {
+                token = GetToken();
+                tempEvalue = 0;
                 Evalue();
-                if (token==')')
+                if (token == ')')
                 {
-                    token=GetToken();
+                    token = GetToken();
                 }
             }
             else if (letters.Contains(token))
@@ -403,17 +435,15 @@ namespace CompilerDesign
         // K → 'a' | 'b' | … | 'z' 
         static void KHarf()
         {
-            agac+=" K-->";
             powerTempVal.Add(variables[token]);
-            tempTokenVar=token;
-            token=GetToken();
+            tempTokenVar = token;
+            token = GetToken();
         }
         // R → '0' | '1' | … | '9' 
         static void Rakam()
         {
-            agac+=" R-->";
             powerTempVal.Add(Convert.ToSingle(token.ToString()));
-            token=GetToken();
+            token = GetToken();
         }
     }
 }
