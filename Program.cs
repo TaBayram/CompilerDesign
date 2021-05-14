@@ -1,4 +1,5 @@
 
+
 using System;
 using System.Collections.Generic;
 namespace CompilerDesign
@@ -63,9 +64,9 @@ namespace CompilerDesign
             if (tokenCounter <= inputLen)
             {
                 tokenpop = tokenList[tokenCounter];
-                if (tempWhileControl>-1)
+                if (tempWhileControl > -1)
                 {
-                    for (int i = 0; i < tempWhileControl+1; i++)
+                    for (int i = 0; i < tempWhileControl + 1; i++)
                     {
                         WhileControlList[i]++;
                     }
@@ -129,7 +130,7 @@ namespace CompilerDesign
             else if (token == '{')
             {
                 tempWhileControl++;
-                if (tempWhileControl==WhileControlList.Count)
+                if (tempWhileControl == WhileControlList.Count)
                 {
                     WhileControlList.Add(0);
                 }
@@ -156,6 +157,7 @@ namespace CompilerDesign
         // I   → '[' E '?' C{ C } ':' C { C } ']' | '[' E '?' C{C} ']'
         static void If()
         {
+            int interIf = 0;
             tempEvalueList.Clear();
             tempEvalueList.Add(0);
 
@@ -202,7 +204,22 @@ namespace CompilerDesign
                     }
                     else
                     {
-                        token = GetToken();
+                        if (token == '[')
+                        {
+                            interIf++;
+                        }
+                        while (interIf > 0)
+                        {
+                            if (token == ']')
+                            {
+                                interIf--;
+                            }
+                            token = GetToken();
+                        }
+                        if (interIf == 0)
+                        {
+                            token = GetToken();
+                        }
                     }
                 }
                 if (token == ']')
@@ -213,7 +230,6 @@ namespace CompilerDesign
                 }
                 else if (token == ':')
                 {
-
                     token = GetToken();
                     while (token != ']')
                     {
@@ -223,7 +239,22 @@ namespace CompilerDesign
                         }
                         else
                         {
-                            token = GetToken();
+                            if (token == '[')
+                            {
+                                interIf++;
+                            }
+                            while (interIf > 0)
+                            {
+                                if (token == ']')
+                                {
+                                    interIf--;
+                                }
+                                token = GetToken();
+                            }
+                            if (interIf == 0)
+                            {
+                                token = GetToken();
+                            }
                         }
                     }
                     tempIfControl--;
@@ -289,7 +320,7 @@ namespace CompilerDesign
                     }
                     else
                     {
-                        if (token=='{')
+                        if (token == '{')
                         {
                             interWhile++;
                         }
@@ -299,10 +330,10 @@ namespace CompilerDesign
                 }
                 if (WhileCondList[tempWhileControl] == 0)
                 {
-                    while (interWhile>0)
+                    while (interWhile > 0)
                     {
                         token = GetToken();
-                        if (token=='}')
+                        if (token == '}')
                         {
                             interWhile--;
                         }
@@ -333,7 +364,7 @@ namespace CompilerDesign
                 selectorMulDivMod.Add(-1);
 
                 powerTempList.Add(new List<float>());
-                
+
                 Evalue();
 
                 powerTempList.Clear();
@@ -350,15 +381,15 @@ namespace CompilerDesign
                         System.Console.WriteLine("\n!!!missing '(' error in assignment operator!!!");
                         Environment.Exit(0);
                     }
-                    else 
+                    else
                     {
-                        
+
                         variables[tempTokenVar] = tempEvalueList[0];
                         defineControl[tempTokenVar] = true;
                         powerTempList.Clear();
                         token = GetToken();
                         Cumle();
-                    
+
                     }
                 }
                 else
@@ -372,7 +403,7 @@ namespace CompilerDesign
                 System.Console.WriteLine("\n!!!assignment error!!!");
                 Environment.Exit(0);
             }
-            
+
         }
         // Ç → '<' E ';'
         static void Cikti()
@@ -394,14 +425,14 @@ namespace CompilerDesign
             if (token == ';')
             {
                 if (counterParanthess < 0)
-                { 
-                    System.Console.WriteLine("\n!!!missing ')' error in output!!! "); 
-                    Environment.Exit(0); 
+                {
+                    System.Console.WriteLine("\n!!!missing ')' error in output!!! ");
+                    Environment.Exit(0);
                 }
                 else if (counterParanthess > 0)
-                { 
-                    System.Console.WriteLine("\n!!!missing '(' error in output!!! "); 
-                    Environment.Exit(0); 
+                {
+                    System.Console.WriteLine("\n!!!missing '(' error in output!!! ");
+                    Environment.Exit(0);
                 }
                 else
                 {
@@ -445,7 +476,7 @@ namespace CompilerDesign
             TerimCarpBol();
             tempEvalueList[counterParanthess] = tempCarpmaBolme;
             while (token == '+' || token == '-')
-            {    
+            {
                 if (token == '+')
                     selectorSubAdd[counterParanthess] = 0;
                 else if (token == '-')
@@ -516,7 +547,7 @@ namespace CompilerDesign
                 if (token == ')')
                 {
                     counterParanthess--;
-                    powerTempList[counterParanthess].Add(tempEvalueList[counterParanthess+1]);
+                    powerTempList[counterParanthess].Add(tempEvalueList[counterParanthess + 1]);
                     token = GetToken();
                 }
             }
@@ -532,7 +563,7 @@ namespace CompilerDesign
         // K → 'a' | 'b' | … | 'z' 
         static void KHarf()
         {
-            if (!assignFlag) 
+            if (!assignFlag)
             {
                 if (defineControl[token])
                 {
@@ -555,6 +586,8 @@ namespace CompilerDesign
         }
     }
 }
+
+
 
 
 /*
