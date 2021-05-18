@@ -63,6 +63,7 @@ namespace CompilerDesign
             char tokenpop;
             if (tokenCounter <= inputLen)
             {
+               
                 tokenpop = tokenList[tokenCounter];
                 if (tempWhileControl > -1)
                 {
@@ -92,8 +93,8 @@ namespace CompilerDesign
             {
                 //input ="  n = 0; { n - 2*5 ? < n; n=n+1}  ";
                 input = Console.ReadLine();
-                inputLen = input.Length - 1;
                 tokenList = input.Replace(" ", "");
+                inputLen = tokenList.Length - 1;
                 tokenCounter = 0;
                 token = GetToken();
                 Program_();
