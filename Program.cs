@@ -14,56 +14,80 @@ namespace CompilerDesign
             
         }
     }*/
+    public class Compiler{
 
-    class Program
-    {
+        public static Compiler Instance;
+        public string input;
 
-        static List<char> operators = new List<char>() { '+', '=', '-', '*', '/', '%', ';', '?', ':', '{', '}', '<', '>' };
-        static List<char> letters = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-        static List<char> numbers = new List<char>() { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-        static List<float> tempEvalueList = new List<float>();
-        static List<List<float>> powerTempList = new List<List<float>>();
-        static List<int> selectorSubAdd = new List<int>();
-        static List<int> selectorMulDivMod = new List<int>();
-        static List<float> ifCondList = new List<float>();
-        static List<float> WhileCondList = new List<float>();
-        static List<int> WhileControlList = new List<int>();
-        static Dictionary<char, float> variables = new Dictionary<char, float>(){
-                                                                                     {'a', new float()},{'b', new float()},{'c', new float()},{'d', new float()},
-                                                                                     {'e', new float()},{'f', new float()},{'g', new float()},{'h', new float()},
-                                                                                     {'i', new float()},{'j', new float()},{'k', new float()},{'l', new float()},
-                                                                                     {'m', new float()},{'n', new float()},{'o', new float()},{'p', new float()},
-                                                                                     {'q', new float()},{'r', new float()},{'s', new float()},{'t', new float()},
-                                                                                     {'u', new float()},{'v', new float()},{'w', new float()},{'x', new float()},
-                                                                                     {'y', new float()},{'z', new float()}
-                                                                                 };
-        static Dictionary<char, bool> defineControl = new Dictionary<char, bool>(){
-                                                                                     {'a', false},{'b', false},{'c', false},{'d', false},
-                                                                                     {'e', false},{'f', false},{'g', false},{'h', false},
-                                                                                     {'i', false},{'j', false},{'k', false},{'l', false},
-                                                                                     {'m', false},{'n', false},{'o', false},{'p', false},
-                                                                                     {'q', false},{'r', false},{'s', false},{'t', false},
-                                                                                     {'u', false},{'v', false},{'w', false},{'x', false},
-                                                                                     {'y', false},{'z', false}
-                                                                                 };
-        static int tokenCounter = 0;
-        static char token;
-        static char tempTokenVar;
-        static string tokenList;
-        static string input;
-        static int inputLen;
-        static float tempCarpmaBolme = 0;
-        static float tempUslu = 0;
-        static int tempWhileControl = -1;
-        static int tempIfControl = -1;
-        static int counterParanthess = 0;
-        static bool assignFlag = false;
-        static char GetToken()
+        public Compiler(string input)
+        {
+            this.input = input;
+        }
+
+        public static Compiler getInstance(String input)
+        {
+            if (Instance == null)
+            {
+                Instance = new Compiler(input);
+            }
+            return Instance;
+        }
+
+        List<char> operators = new List<char>() { '+', '=', '-', '*', '/', '%', ';', '?', ':', '{', '}', '<', '>' };
+        List<char> letters = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+        List<char> numbers = new List<char>() { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        List<float> tempEvalueList = new List<float>();
+        List<List<float>> powerTempList = new List<List<float>>();
+        List<int> selectorSubAdd = new List<int>();
+        List<int> selectorMulDivMod = new List<int>();
+        List<float> ifCondList = new List<float>();
+        List<float> WhileCondList = new List<float>();
+        List<int> WhileControlList = new List<int>();
+        Dictionary<char, float> variables = new Dictionary<char, float>(){
+                                                                                 {'a', new float()},{'b', new float()},{'c', new float()},{'d', new float()},
+                                                                                 {'e', new float()},{'f', new float()},{'g', new float()},{'h', new float()},
+                                                                                 {'i', new float()},{'j', new float()},{'k', new float()},{'l', new float()},
+                                                                                 {'m', new float()},{'n', new float()},{'o', new float()},{'p', new float()},
+                                                                                 {'q', new float()},{'r', new float()},{'s', new float()},{'t', new float()},
+                                                                                 {'u', new float()},{'v', new float()},{'w', new float()},{'x', new float()},
+                                                                                 {'y', new float()},{'z', new float()}
+                                                                             };
+        Dictionary<char, bool> defineControl = new Dictionary<char, bool>(){
+                                                                                 {'a', false},{'b', false},{'c', false},{'d', false},
+                                                                                 {'e', false},{'f', false},{'g', false},{'h', false},
+                                                                                 {'i', false},{'j', false},{'k', false},{'l', false},
+                                                                                 {'m', false},{'n', false},{'o', false},{'p', false},
+                                                                                 {'q', false},{'r', false},{'s', false},{'t', false},
+                                                                                 {'u', false},{'v', false},{'w', false},{'x', false},
+                                                                                 {'y', false},{'z', false}
+                                                                             };
+        int tokenCounter = 0;
+        char token;
+        char tempTokenVar;
+        string tokenList;
+        int inputLen;
+        float tempCarpmaBolme = 0;
+        float tempUslu = 0;
+        int tempWhileControl = -1;
+        int tempIfControl = -1;
+        int counterParanthess = 0;
+        bool assignFlag = false;
+        
+        public void ReadyInputForCompiling()
+        {
+            tokenList = input.Replace(" ", "");
+            inputLen = tokenList.Length - 1;
+            tokenCounter = 0;
+            token = GetToken();
+            Program_();
+        }
+        
+        char GetToken()
         {
             char tokenpop;
             if (tokenCounter <= inputLen)
             {
-               
+        
                 tokenpop = tokenList[tokenCounter];
                 if (tempWhileControl > -1)
                 {
@@ -82,16 +106,18 @@ namespace CompilerDesign
                 }
                 tokenpop = '.';
             }
-
+        
             return tokenpop;
         }
-
-
-        static void Main(string[] args)
+        
+        
+        
+        
+        /*static public void Main(String[] args)
         {
             do
             {
-                //input ="  n = 0; { n - 2*5 ? < n; n=n+1}  ";
+                //input ="  n = 0; { n - 2*5 ? < n; n=n+1;}  ";
                 input = Console.ReadLine();
                 tokenList = input.Replace(" ", "");
                 inputLen = tokenList.Length - 1;
@@ -101,11 +127,11 @@ namespace CompilerDesign
                 /*foreach (var item in variables)
                 {
                     System.Console.WriteLine(item.Value);
-                }*/
+                }
             } while (input != "");
-        }
-
-        static void Program_()
+        }*/
+        
+        void Program_()
         {
             if (token != '.')
             {
@@ -116,11 +142,11 @@ namespace CompilerDesign
                 //programı sonlandır
                 Console.WriteLine("\n-->interpreted with no error<--");
             }
-
+        
         }
-
+        
         // C → I | W | A | Ç | G 
-        static void Cumle()
+        void Cumle()
         {
             if (token == '[')
             {
@@ -154,24 +180,24 @@ namespace CompilerDesign
                 Girdi();
             }
         }
-
+        
         // I   → '[' E '?' C{ C } ':' C { C } ']' | '[' E '?' C{C} ']'
-        static void If()
+        void If()
         {
             int interIf = 0;
             tempEvalueList.Clear();
             tempEvalueList.Add(0);
-
+        
             selectorSubAdd.Clear();
             selectorSubAdd.Add(-1);
-
+        
             selectorMulDivMod.Clear();
             selectorMulDivMod.Add(-1);
-
+        
             powerTempList.Add(new List<float>());
-
+        
             Evalue();
-
+        
             powerTempList.Clear();
             if (counterParanthess > 0)
             {
@@ -196,7 +222,7 @@ namespace CompilerDesign
             else
             {
                 token = GetToken();
-
+        
                 while (token != ']' && token != ':')
                 {
                     if (ifCondList[tempIfControl] != 0)
@@ -262,27 +288,27 @@ namespace CompilerDesign
                     token = GetToken();
                     Cumle();
                 }
-
+        
             }
         }
-
+        
         //W → '{' E '?'  C{C} '}'
-        static void Whle()
+        void Whle()
         {
             int interWhile = 0;
             tempEvalueList.Clear();
             tempEvalueList.Add(0);
-
+        
             selectorSubAdd.Clear();
             selectorSubAdd.Add(-1);
-
+        
             selectorMulDivMod.Clear();
             selectorMulDivMod.Add(-1);
-
+        
             powerTempList.Add(new List<float>());
-
+        
             Evalue();
-
+        
             powerTempList.Clear();
             if (counterParanthess > 0)
             {
@@ -326,7 +352,7 @@ namespace CompilerDesign
                             interWhile++;
                         }
                         token = GetToken();
-
+        
                     }
                 }
                 if (WhileCondList[tempWhileControl] == 0)
@@ -346,7 +372,7 @@ namespace CompilerDesign
             }
         }
         // A → K '=' E ';'
-        static void Atama()
+        void Atama()
         {
             assignFlag = true;
             KHarf();
@@ -354,20 +380,20 @@ namespace CompilerDesign
             if (token == '=')
             {
                 token = GetToken();
-
+        
                 tempEvalueList.Clear();
                 tempEvalueList.Add(0);
-
+        
                 selectorSubAdd.Clear();
                 selectorSubAdd.Add(-1);
-
+        
                 selectorMulDivMod.Clear();
                 selectorMulDivMod.Add(-1);
-
+        
                 powerTempList.Add(new List<float>());
-
+        
                 Evalue();
-
+        
                 powerTempList.Clear();
                 if (token == ';')
                 {
@@ -384,13 +410,13 @@ namespace CompilerDesign
                     }
                     else
                     {
-
+        
                         variables[tempTokenVar] = tempEvalueList[0];
                         defineControl[tempTokenVar] = true;
                         powerTempList.Clear();
                         token = GetToken();
                         Cumle();
-
+        
                     }
                 }
                 else
@@ -404,24 +430,24 @@ namespace CompilerDesign
                 System.Console.WriteLine("\n!!!assignment error!!!");
                 Environment.Exit(0);
             }
-
+        
         }
         // Ç → '<' E ';'
-        static void Cikti()
+        void Cikti()
         {
             tempEvalueList.Clear();
             tempEvalueList.Add(0);
-
+        
             selectorSubAdd.Clear();
             selectorSubAdd.Add(-1);
-
+        
             selectorMulDivMod.Clear();
             selectorMulDivMod.Add(-1);
-
+        
             powerTempList.Add(new List<float>());
-
+        
             Evalue();
-
+        
             powerTempList.Clear();
             if (token == ';')
             {
@@ -447,10 +473,10 @@ namespace CompilerDesign
                 System.Console.WriteLine("\n!!!missing ';' error in output!!!");
                 Environment.Exit(0);
             }
-
+        
         }
         // G → '>' K ';'
-        static void Girdi()
+        void Girdi()
         {
             assignFlag = true;
             KHarf();
@@ -462,17 +488,17 @@ namespace CompilerDesign
                 defineControl[tempTokenVar] = true;
                 token = GetToken();
                 Cumle();
-
+        
             }
             else
             {
                 System.Console.WriteLine("\n!!!missing ';' on input error!!!");
                 Environment.Exit(0);
             }
-
+        
         }
         // E → T {('+' | '-') T}
-        static void Evalue()
+        void Evalue()
         {
             TerimCarpBol();
             tempEvalueList[counterParanthess] = tempCarpmaBolme;
@@ -484,7 +510,7 @@ namespace CompilerDesign
                     selectorSubAdd[counterParanthess] = 1;
                 token = GetToken();
                 TerimCarpBol();
-
+        
                 if (selectorSubAdd[counterParanthess] == 0)
                     tempEvalueList[counterParanthess] += tempCarpmaBolme;
                 else if (selectorSubAdd[counterParanthess] == 1)
@@ -492,7 +518,7 @@ namespace CompilerDesign
             }
         }
         // T → U {('*' | '/' | '%') U}
-        static void TerimCarpBol()
+        void TerimCarpBol()
         {
             powerTempList[counterParanthess].Clear();
             Uslu();
@@ -523,7 +549,7 @@ namespace CompilerDesign
             }
         }
         // U → F '^' U | F
-        static void Uslu()
+        void Uslu()
         {
             Fgroup();//  a^2^4^5
             while (token == '^')
@@ -533,7 +559,7 @@ namespace CompilerDesign
             }
         }
         // F → '(' E ')' | K | R
-        static void Fgroup()
+        void Fgroup()
         {
             if (token == '(')
             {
@@ -562,7 +588,7 @@ namespace CompilerDesign
             }
         }
         // K → 'a' | 'b' | … | 'z' 
-        static void KHarf()
+        void KHarf()
         {
             if (!assignFlag)
             {
@@ -580,11 +606,33 @@ namespace CompilerDesign
             token = GetToken();
         }
         // R → '0' | '1' | … | '9' 
-        static void Rakam()
+        void Rakam()
         {
             powerTempList[counterParanthess].Add(Convert.ToSingle(token.ToString()));
             token = GetToken();
         }
+
+
+    } 
+    class Program
+    {
+        
+            
+            static public void Main(String[] args)
+            {
+                string input;
+                do
+                {
+                    //input ="  n = 0; { n - 2*5 ? < n; n=n+1;}  ";
+                    input = Console.ReadLine();
+                    Compiler.getInstance(input).ReadyInputForCompiling();
+                    Compiler.Instance = null;
+                    
+                    
+                } while (input != "");
+            }
+
+            
     }
 }
 
