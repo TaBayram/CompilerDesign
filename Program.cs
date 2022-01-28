@@ -4,16 +4,7 @@ using System;
 using System.Collections.Generic;
 namespace CompilerDesign
 {
-    /*public class Variable
-    {
-        public object Value { get; set; }
-        public Variable(Object val){
-            Value=val;
-        }
-        public Variable(){
-            
-        }
-    }*/
+    
     public class Compiler{
 
         public static Compiler Instance;
@@ -113,23 +104,7 @@ namespace CompilerDesign
         
         
         
-        /*static public void Main(String[] args)
-        {
-            do
-            {
-                //input ="  n = 0; { n - 2*5 ? < n; n=n+1;}  ";
-                input = Console.ReadLine();
-                tokenList = input.Replace(" ", "");
-                inputLen = tokenList.Length - 1;
-                tokenCounter = 0;
-                token = GetToken();
-                Program_();
-                /*foreach (var item in variables)
-                {
-                    System.Console.WriteLine(item.Value);
-                }
-            } while (input != "");
-        }*/
+        
         
         void Program_()
         {
@@ -332,7 +307,6 @@ namespace CompilerDesign
             }
             else
             {
-                //whileLoop=input.Substring(tokenCounter,input.IndexOf('}'));
                 token = GetToken();
                 while (token != '}')
                 {
@@ -617,7 +591,6 @@ namespace CompilerDesign
     class Program
     {
         
-            
             static public void Main(String[] args)
             {
                 string input;
